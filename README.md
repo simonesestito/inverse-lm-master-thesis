@@ -21,6 +21,9 @@ ILM can lay the foundation for next-generation LLMs that are not only robust and
     <a href="https://raw.githubusercontent.com/simonesestito/inverse-lm-master-thesis/main/presentation.pdf">
         <img src=".github/assets/presentation-button.svg" height="80">
     </a>
+    <a href="https://raw.githubusercontent.com/simonesestito/inverse-lm-master-thesis/main/seminar.pdf">
+        <img src=".github/assets/seminar-button.svg" height="80">
+    </a>
 </div>
 
 <div>
@@ -34,9 +37,11 @@ ILM can lay the foundation for next-generation LLMs that are not only robust and
 
 ---
 
-This repository contains:
-- the LaTeX source code of the Master Thesis
-- the LaTeX source code of the ArXiv preprint
+This repository contains the LaTeX source code of:
+- Master Thesis
+- ArXiv preprint
+- Thesis Presentation
+- Seminar for a Natural Language Processing university class
 
 The source code for the experiment is available at:
 https://github.com/davegabe/pag-llm
