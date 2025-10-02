@@ -1,0 +1,226 @@
+\section{Results}
+
+\begin{frame}{Inversion Evaluation}
+\note{
+    In all these evaluation tables, we can see that the \textbf{Identity} model using gradients as \textbf{directions} \\
+    is chosen as the best variant. \\
+    Interestingly, the \textbf{baseline} is already able to invert quite well, \\
+    even though this method allowed us to further improve it. \\
+    NOTE that to invert we need an \textbf{init}: \\
+    - for baseline and identity, we use a very simple bigram model \\
+    - for bert and inv-first, we use the PAD token as did during training.
+}
+\begin{table}[bthp]
+\centering
+\resizebox{0.9\textwidth}{!}{
+    \begin{tabular}{rlcccc}
+    \toprule
+    & \multirow{2}{*}{\textbf{Grad.}} & \textbf{Token}    & \textbf{Token}       & \textbf{Token}      & \textbf{Positional} \\
+    &                                 & \textbf{Recall ↑} & \textbf{Precision ↑} & \textbf{F1-score ↑} & \textbf{Accuracy ↑} \\
+    \midrule
+    Baseline   &                      & 20.9\%            & 18.8\%               & 19.7\%              & 2.4\%               \\
+    \midrule
+    Inv-First  &                      & 11.3\%            & 10.1\%               & 10.7\%              & 1.7\%               \\
+    Bert-like  & Val.                 & 2.9\%             & 2.7\%                & 2.8\%               & 0.3\%               \\
+    Identity   &                      & 0.7\%             & 0.7\%                & 0.7\%               & 0.1\%               \\
+    \midrule
+    Inv-First  &                      & 13.3\%            & 12.0\%               & 12.6\%              & 2.4\%               \\
+    Bert-like  & Dir.                 & 0.1\%             & 0.1\%                & 0.1\%               & 0.1\%               \\
+    \highlight{Identity}   &          & \textbf{22.5\%}   & \textbf{20.2\%}      & \textbf{21.2\%}     & \textbf{2.5\%}      \\
+    \bottomrule
+    \end{tabular}
+}
+\vspace{0.25cm}
+\caption{Evaluation of the inversion capabilities, on metrics relative to the single tokens}
+\label{tab:ilm-evaluation-token-metrics}
+\end{table}
+\end{frame}
+
+\begin{frame}{Inversion Evaluation}
+\note{
+    To have more accurate results, we passed the sentences to a third-party LLM \emph{Llama 1B}, to compute some perplexity statistics. \\
+    It shows: \\
+    - PPL of the overall sentence $\bxa || \by$ \\
+    - PPL of just the inverted prefix $\bxa$
+}
+\begin{table}[bthp]
+\centering
+\resizebox{0.8\textwidth}{!}{
+    \begin{tabular}{rlccc}
+    \toprule
+    & \multirow{2}{*}{\textbf{Grad.}} & \textbf{Full Sentence} & \textbf{Predicted Prefix} & \textbf{Semantic}     \\
+    &                                 & \textbf{Perplexity ↓}  & \textbf{Perplexity ↓}     & \textbf{Similarity ↑} \\ 
+    \midrule
+    Baseline   &                      & \textbf{8.34}          & 112.82                    & \underline{0.28}      \\
+    \midrule
+    Inv-First  &                      & 10.21                  & 1576.23                   & 0.25                  \\
+    Bert-like  & Val.                 & 11.54                  & 5501.86                   & 0.17                  \\
+    Identity   &                      & 13.88                  & 14658.58                  & 0.12                  \\
+    \midrule
+    Inv-First  &                      & 9.77                   & 1012.80                   & \textbf{0.30}         \\
+    Bert-like  & Dir.                 & 11.05                  & 563.26                    & 0.11                  \\
+    \highlight{Identity}   &          & \textbf{8.34}          & \textbf{106.31}           & \textbf{0.30}         \\
+    \bottomrule
+    \end{tabular}
+}
+\vspace{0.25cm}
+\caption{Metrics relative to the full sentences, computed using a third-party LLM}
+\label{tab:ilm-evaluation-sentences-metrics-llama}
+\end{table}
+\end{frame}
+
+\begin{frame}{Example of Inversion}
+\note{
+    You can see some examples, where 2 make sense and the others are just gibberish. \\
+    This table must be read as: \\
+    - ground truth = $\bx || \by$ \\
+    - prediction of a model = $\bxa || \by$
+}
+    % Increase the height of the rows of the table,
+    % ONLY for this frame.
+    \newcommand{\hdashline}{\\}
+
+
+    \begin{table}[htbp]
+    \centering % Center the entire set of subtables
+    \footnotesize
+
+    \resizebox{0.95\textwidth}{!}{
+    \begin{NiceTabular}{ll|[tikz=dotted]X}
+        \toprule
+        $\bx$  &  &  dad in the garden. He gives her a small shovel and a bag of bulbs. \\
+        \midrule
+        $\bxa$ Baseline & &  \highlight{to play with his cars, and look at the shake. She feels on her hand.} \\
+        \midrule
+        $\bxa$ Inv-First & (Val.) & \textcolor{gray}{zzle spowerlizza in her plate. She start to fence and leaves.} \\
+        \hdashline
+        $\bxa$ Bert-like & (Val.) &  \textcolor{gray}{could buildDven measure its neighbign, how he sees nostiff.} \\
+        \hdashline
+        $\bxa$ Identity & (Val.)  & \textcolor{gray}{Kugct propide,RallashQilndmawkeycessUuhingask do.} \\
+        \midrule
+        $\bxa$ Inv-First & (Dir.) &  too hurt the car's bricket. It did not want to grow in a cage. \\
+        \hdashline
+        $\bxa$ Bert-like & (Dir.) &  \textcolor{gray}{Tim! Tim,ide, Sue, Sue, Tim!ide, "Tim, "Tim,ice. Tim! Tim!ittenbbed Tim! Tim,ide,auseectle.} \\
+        \hdashline
+        $\bxa$ \highlight{Identity} & (Dir.)  &  \highlight{cars, and gets on his hand. But he does not want to play with the towers.} \\
+        \midrule
+        $\by$  &   & Bulbs are like round seeds that grow into flowers. Lily digs holes in the dirt and puts the bulbs inside. She covers them with more [...] \\
+        \bottomrule
+    \end{NiceTabular}
+    }
+    \end{table}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%          ROBUSTNESS         %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{ILM Robustness Results}
+\note{
+    THEN, we have the \textbf{twofold objective} = ROBUSTNESS. \\
+    Here, still the \textbf{Identity model} is the best model, reducing the Attack Success Rate by 13\%. \\
+    Then, we see the \textbf{Bert-like} model with gradients as pure values to be extraordinarily successful, \\
+    but it requires more research to correctly understand the why.
+}
+    \centering
+\begin{tabular}{rlcc}
+\toprule
+           & \multirow{2}{*}{\textbf{Grad.}} & \textbf{GCG}             & \textbf{GCG Average Steps}   \\
+           &                                 & \textbf{Success Rate ↓}  & \textbf{(mean ± stddev)}     \\
+\midrule
+Baseline   &                                 & 95.9\%                   & 277 $\pm$ 148                \\
+\midrule
+Inv-First  &                                 & 85.0\%                   & 320 $\pm$ 134                \\
+Bert-like  & Val.                            & \textbf{0.8\%}           & 249 $\pm$ 148                \\
+Identity   &                                 & 88.1\%                   & 274 $\pm$ 145                \\
+\midrule
+Inv-First  &                                 & 89.3\%                   & 313 $\pm$ 134                \\
+Bert-like  & Dir.                            & 85.5\%                   & 287 $\pm$ 143                \\
+\highlight{Identity}   &                     & \underline{82.8\%}       & 284 $\pm$ 141                \\
+\bottomrule
+\end{tabular}
+    \vfill
+    Identity looks good, but Bert-like is \highlight{suspicious}
+\end{frame}
+
+
+\begin{frame}{ILM Robustness --- Metrics on the Model Itself}
+\note{
+    We also see the decrease in \textbf{loss} when the attack is successful. \\
+    - the higher this DELTA is, the more "fooled" the model has been by the Evil Twin \\
+    $\rightarrow$ that's why a lower DELTA is better. \\
+    - the KL Divergence indicates that the $\bx$ and $\bxa$ map to different output distributions of the logits, \\
+    like if the model can map it to different distributions, therefore different \textbf{internal hidden states}.    
+}
+    \centering
+\begin{tabular}{rlcccc}
+\toprule
+           & \multirow{2}{*}{\textbf{Grad.}} & \textbf{Original X} & \textbf{Attack X'} & \textbf{Delta}     & \textbf{KL}           \\
+           &                                 & \textbf{CE-loss ↓}  & \textbf{CE-loss}   & \textbf{CE-loss ↓} & \textbf{Divergence ↑} \\
+\midrule
+Baseline   &                                 & 13.28               & 10.97              & 2.31               & 2.19                  \\
+\midrule
+Inv-First  &                                 & \textbf{11.09}      & 9.72               & \underline{1.37}   & 2.44                  \\
+Bert-like  & Val.                            & 13.26               & 10.25              & 3.01               & \textbf{54.19}        \\
+Identity   &                                 & 12.77               & 11.21              & 1.56               & 2.23                  \\
+\midrule
+Inv-First  &                                 & \underline{11.21}   & 9.81               & 1.40               & 2.44                  \\
+Bert-like  & Dir.                            & 11.49               & 10.34              & \textbf{1.15}      & 2.23                  \\
+\highlight{Identity}   &                     & 12.58               & 11.12              & 1.46               & 2.47                  \\
+\bottomrule
+\end{tabular}
+    \vfill
+    Also, Bert-like seems to map $\bxa$ to very different next token \highlight{distributions}
+\end{frame}
+
+\begin{frame}{ILM Robustness --- Third-Party Model Metrics}
+\note{
+    To conclude, we have the third-party LLM measurements, \\
+    where we basically see that the $\bxa$, \textbf{when successfully found}, \\
+    still is gibberish and absolutely not similar with the original X. \\
+    HOWEVER, who knows if this may improve in larger models such as Llama, \\
+    future research will address the scaling problem.
+}
+    \centering
+\begin{tabular}{rlccc}
+\toprule
+           & \multirow{2}{*}{\textbf{Grad.}} & \textbf{Original X} & \textbf{Attack X'}    & \textbf{Semantic}     \\
+           &                                 & \textbf{Perplexity} & \textbf{Perplexity ↓} & \textbf{Similarity ↑} \\
+\midrule
+Baseline   &                                 & 44.14               & 17344.04              & 0.13                  \\
+\midrule
+Inv-First  &                                 & 44.81               & \underline{9431.09}   & \underline{0.16}      \\
+Bert-like  & Val.                            & 40.37               & 11817.21              & 0.11                  \\
+Identity   &                                 & 43.98               & \textbf{8322.25}      & \textbf{0.18}         \\
+\midrule
+Inv-First  &                                 & 43.50               & 12344.85              & 0.13                  \\
+Bert-like  & Dir.                            & 44.74               & 10611.09              & 0.13                  \\
+\highlight{Identity}   &                     & 44.71               & 10929.21              & 0.15                  \\
+\bottomrule
+\end{tabular}
+    \vfill
+    However, all $\bxa$ are \highlight{meaningless}, due to extremely high 3rd party model perplexity
+\end{frame}
+
+
+\begin{frame}{ILM Robustness --- Qualitative Results}
+\note{Here we can see an example to show that the $\bxa$ attack prefix is still gibberish}
+\begin{tabularx}{\linewidth}{lX>{\hsize=.75\hsize}Xc}\toprule
+ & \textbf{Input} & \textbf{Output $\by$} & \textbf{Loss} \\
+%
+\midrule
+$\bx$~: & Lily and Ben were friends who liked to play outside. But they did not like the same things. Lily & \multirow{5}{=}{liked to make snowmen and snow angel} & 13.22 \\ \\
+$\bxa$: & Lucy. Speez herself angO piecle you."lly named nexird opened cake".o.ter carrotmy & &  \textbf{ 12.14 } \\
+\bottomrule
+\end{tabularx}
+
+\vfill
+
+\begin{center}
+    An example result attacking with GCG the \texttt{Identity (grad. value)} model. \\
+    Almost the same for all model variants.
+\end{center}
+
+
+\end{frame}

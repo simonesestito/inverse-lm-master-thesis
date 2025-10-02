@@ -1,0 +1,46 @@
+\section{Preliminary Study}
+
+\begin{frame}{Robust sentence classifier}
+    \begin{center}
+        We have to move into text and LLMs
+    \end{center}
+\end{frame}
+
+\begin{frame}{Robust sentence classifier}
+    What if:
+    \begin{itemize}
+        \item Our input image is a sentence embedding from BERT
+        \item Our classes are languages, and the sentiment of those sentences
+    \end{itemize}
+
+    \vfill
+    \begin{center}
+        \footnotesize    The Multilingual Amazon Reviews Corpus
+    \end{center}
+
+    \vfill
+    \pause
+    \centering
+    However, gradients have no more \highlight{"visual" meaning} for a human.
+    \note{What's the image of a sentence embedding? It cannot exist}
+
+    But hidden states contain the \highlight{meaning of the overall sentence}, like an image
+\end{frame}
+
+\begin{frame}{And it works!}
+\begin{table}[]
+\begin{tabular}{lcclccc}
+\toprule
+                             & \multicolumn{2}{c}{\textbf{APGD}}          & \textbf{Square}                     & \multicolumn{3}{c}{\textbf{FSGM}}                                                                               \\
+                             & $\varepsilon = 1e-3$ & $\varepsilon = 0.5$ &                                     & \multicolumn{1}{l}{$\alpha = 1e-3$} & \multicolumn{1}{l}{$\alpha = 5e-3$} & \multicolumn{1}{l}{$\alpha = 1e-2$} \\
+ \midrule
+\multicolumn{1}{r}{Baseline} & 47.9\%               & 41.7\%              & \multicolumn{1}{c}{48.2\%}          & 79.2\%                              & 44.8\%                              & 14.5\%                              \\
+\multicolumn{1}{r}{PAG model}   & \textbf{75.8\%}      & \textbf{70.4\%}     & \multicolumn{1}{c}{\textbf{76.6\%}} & \textbf{82.4\%}                     & \textbf{69.2\%}                     & \textbf{49.0\%}                    \\
+\bottomrule
+\end{tabular}
+\vspace{0.25cm}
+\caption{Adversarial attacks comparing the two models}
+\label{table:pag__binary_classifier_robustness}
+\end{table}
+\end{frame}
+

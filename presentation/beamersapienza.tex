@@ -1,0 +1,47 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Based on the template available at:                            %
+% https://github.com/andrea-gasparini/sapienza-beamer-template   %
+%                                                                %
+% Template author: Andrea Gasparini                              %
+% Template license: GNU General Public License v3.0              %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{beamer}
+\usepackage{amsfonts,amsmath,oldgerm,booktabs,multirow,overpic}
+\usepackage{algorithm,algpseudocodex}
+\usepackage{nicematrix}
+\usepackage{tabularx}
+\usetheme{sintef}
+
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{footline}[frame number]{}
+\setbeameroption{show notes on second screen}
+\urlstyle{same}
+
+\usefonttheme[onlymath]{serif}
+
+\titlebackground*{assets/background_negative}
+
+\newcommand{\hrefcol}[2]{\textcolor{navy}{\href{#1}{#2}}}
+
+\title{Inverse Language Modeling towards Robust and Grounded LLMs}
+%\subtitle{OmnAI Lab}
+\course{Master's Degree in Computer Science}
+\author{\href{mailto:sestito.1937764@studenti.uniroma1.it}{Simone Sestito}}
+\IDnumber{1937764}
+\date{Academic Year 2024/2025}
+
+\input{aliases}
+
+\begin{document}
+\maketitle
+
+\input{sections/introduction}
+% \input{sections/preliminary_study}
+% \input{sections/gcg}
+\input{sections/inverse_lm}
+\input{sections/results}
+\input{sections/arxiv}
+
+\backmatter
+\end{document}
