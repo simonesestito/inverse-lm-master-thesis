@@ -1,10 +1,10 @@
 # Inverse Language Modeling for Robust and Grounded LLMs
 
-**Master's Degree Thesis in Computer Science**
-
-<blockquote>
-    A causal model looks ahead, but only its gradients disclose the pasts that might have built that future.
-</blockquote>
+<p align="center">
+    <b>Master's Degree Thesis in Computer Science</b>
+    <br>
+    <i>A causal model looks ahead, but only its gradients disclose the pasts that might have built that future.</i>
+</p>
 
 The current landscape of defensive mechanisms for LLMs is fragmented and underdeveloped, unlike prior work on classifiers.
 To further promote adversarial robustness in LLMs, we propose Inverse Language Modeling (ILM), a unified framework that simultaneously:
