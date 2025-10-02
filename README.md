@@ -33,7 +33,9 @@ ILM can lay the foundation for next-generation LLMs that are not only robust and
     <a href="https://omnai.di.uniroma1.it/">
         <img src=".github/assets/omnai.png" height="70">
     </a>
-    <img src=".github/assets/sapienza.png" height="80">
+    <a href="https://www.uniroma1.it/en/pagina-strutturale/home">
+        <img src=".github/assets/sapienza.png" height="80">
+    </a>
     <img src=".github/assets/nextgeneu-logo.png" height="60">
 </div>
 
