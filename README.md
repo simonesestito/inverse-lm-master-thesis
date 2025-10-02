@@ -2,11 +2,17 @@
 
 **Master's Degree Thesis in Computer Science**
 
-To further understand adversarial robustness in LLMs, we propose **Inverse Language Modeling (ILM)**, a unified framework that simultaneously:
+<blockquote>
+    A causal model looks ahead, but only its gradients disclose the pasts that might have built that future.
+</blockquote>
+
+The current landscape of defensive mechanisms for LLMs is fragmented and underdeveloped, unlike prior work on classifiers.
+To further promote adversarial robustness in LLMs, we propose Inverse Language Modeling (ILM), a unified framework that simultaneously:
 1) improves the robustness of LLMs to input perturbations, and, at the same time,
 2) enables native grounding by inverting model outputs to identify potentially toxic or unsafe input triggers.
 
-ILM transforms LLMs from static generators into analyzable and robust systems.
+ILM transforms LLMs from static generators into analyzable and robust systems, potentially helping RED teaming.
+
 ILM can lay the foundation for next-generation LLMs that are not only robust and grounded but also fundamentally more controllable and trustworthy.
 
 **Keywords:** Artificial Intelligence Safety, Large Language Models, Robustness, Adversarial Attacks, Inverse Problems
@@ -20,9 +26,6 @@ ILM can lay the foundation for next-generation LLMs that are not only robust and
     </a>
     <a href="https://raw.githubusercontent.com/simonesestito/inverse-lm-master-thesis/main/presentation.pdf">
         <img src=".github/assets/presentation-button.svg" height="80">
-    </a>
-    <a href="https://raw.githubusercontent.com/simonesestito/inverse-lm-master-thesis/main/seminar.pdf">
-        <img src=".github/assets/seminar-button.svg" height="80">
     </a>
 </div>
 
@@ -40,8 +43,7 @@ ILM can lay the foundation for next-generation LLMs that are not only robust and
 This repository contains the LaTeX source code of:
 - Master Thesis
 - ArXiv preprint
-- Thesis Presentation
-- Seminar for a Natural Language Processing university class
+- Thesis Presentation and a Seminar for a Natural Language Processing university class
 
 The source code for the experiment is available at:
 https://github.com/davegabe/pag-llm
