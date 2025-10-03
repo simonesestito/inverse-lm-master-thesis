@@ -18,7 +18,7 @@ ILM can lay the foundation for next-generation LLMs that are not only robust and
 **Keywords:** Artificial Intelligence Safety, Large Language Models, Robustness, Adversarial Attacks, Inverse Problems
 
 <div>
-    <a href="https://raw.githubusercontent.com/simonesestito/inverse-lm-master-thesis/main/thesis.pdf">
+    <a href="https://arxiv.org/abs/2510.01929">
         <img src=".github/assets/arxiv-button.svg" height="80">
     </a>
     <a href="https://raw.githubusercontent.com/simonesestito/inverse-lm-master-thesis/main/thesis.pdf">
