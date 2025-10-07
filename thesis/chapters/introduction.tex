@@ -1,0 +1,218 @@
+\documentclass[../thesis.tex]{subfiles}
+\graphicspath{{\subfix{../assets/}}}
+\begin{document}
+
+\chapter{Introduction}
+%% Introductory text
+In Computer Science and Data Science, Artificial Intelligence (abbreviated as \emph{AI}) indicates the capabilities of an automated computational system to simulate abilities in performing tasks typically associated with human intelligence.
+
+Applications of AI have gone way beyond their original conception, from limited rule-based systems to sophisticated models that nowadays are able to perform powerful classification tasks, recommendation systems, playing games due to the power of reinforcement learning, or even \textbf{generating synthetic data} that looks extremely similar to real-world data.
+
+This evolution allowed the development of complex programs that are able to tune their parameters to improve their performance in solving more and more involved tasks.
+What really contributed to this evolution is the invention of \textbf{Artificial Neural Networks} (ANNs). They originally where a simple multilayered perceptron-type network structure \citep{polynomial-theory-first-neural-network}, heavily inspired by the biological connections in human brains, interleaved by non-linear functions, so that the whole layers do not collapse in a single linear function.
+They are composed by several neurons that work by aggregating information from previous layers, in a learnable weighted sum. The learning of the weights in this sum is the fundamental part in ANNs, which lets them learn a non-linear function, thanks to Backpropagation, which is an algorithm based on gradient estimation to train a neural network, based on a defined loss function, representing how much the network is approaching the optimal objective we define.
+
+
+\section{Inductive Bias in Neural Networks}
+Later works in this field, took to the development of more and more complex structures, adding always different inductive biases, i.e. the choice of hypotheses space from which learned functions are taken \citep{cohen2016inductivebias}.
+\textbf{Convolutional Neural Networks} (CNNs) \citep{krizhevsky2012imagenet}, and older architectures like the Neocognitron model proposed by \citeauthor{fukushima1980neocognitron}, inspired by the neuro-physiological findings on the visual systems of mammals, allowed the construction of neural networks that had lots of successes in the field of Computer Vision. In its essence, CNNs inductive bias are the feature hierarchy principle, involving inside of the network a sequence of layers that should identify from low-level to high-level features in the input image, but also the translation invariance and weights sharing, given by the convolutional kernels, which are applied as-they-are on the overall image, instead of being different according to different portions of the input, finally applying a locality principle, which allows CNNs to capture patterns in a local area of the image, thanks to the enforcement of a local connectivity pattern between neurons of adjacent layers.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{assets/CNN_Illustration.drawio.pdf}
+    \caption{Diagram summarizing the main idea behind a CNN}
+    \label{fig:cnn_illustration}
+\end{figure}
+
+Later on, different architectures where created to get even better on several domain-specific tasks.
+An example of this is the creation of \textbf{Graph Neural Networks} (GNNs) \cite{introducinggraphneuralnetworksgnn}.
+They focused on a specialized architecture that could process graphs, given their already popular usage to represent data in several different fields, from molecular chemistry, to pattern recognition, and even data mining. They can be seen as a generalization of CNNs, where the connections are modeled in a non-Euclidean space, considering the depths of a graph as in \cref{fig:gnn_illustration}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.4\linewidth]{assets/GNN_Illustration.drawio.pdf}
+    \caption{Diagram illustrating the concept of a GNN creating a vector embedding for a node, with respect to its neighbors at various depths}
+    \label{fig:gnn_illustration}
+\end{figure}
+
+\subsection{Sequence Processing}
+\label{sec:introduction__sequence_processing}
+Sequence processing posed its own challenges, due to the variable length of the input and possibly a variable length of the output.
+First works include \textbf{Recurrent Neural Networks} to allow networks to have an internal dynamic memory that could be kept updated with next steps in a time series \citep{ELMAN1990179rnn}, as shown in \cref{fig:diagram_rnn}. Their architecture leverages the sequential dependencies between positions in the input sequence, giving an inductive bias to the current position to also influence future ones. Even though their parameters are shared across different time steps, this kind of networks, in their standard formulation, are difficult to be trained due to their natural vanishing and exploding gradients issues \citep{bengio1994gradientdescent-rnn}.
+
+%% LSTM
+To overcome this issue and to allow dependencies interactions with larger distances, \textbf{Long Short-Term Memory} networks have been introduced by \citeauthor{lstm}, illustrated in \cref{fig:diagram_lstm}.
+Its internal structure is composed by \emph{gates} that allow the network 
+to decide how much information to discard from its internal long term memory (Forget gate),
+which parts of the input to add to the memory, after some transformation (Input gate),
+and what should be output for that time step, if needed (Output gate).
+LSTM also solves complex, artificial long-time-lag tasks that have never been solved by previous recurrent network algorithms. It can learn much faster, thanks to the uninterrupted gradient flow in the gated skip connections between memories across subsequent time steps.
+
+% Fix for subfigures with different heights
+% From: https://tex.stackexchange.com/a/239176
+\newsavebox{\largestimage}
+\begin{figure}
+    \centering
+    % Store largest image in a box
+    \savebox{\largestimage}{%
+        \includegraphics[width=0.4\textwidth]{assets/RNN_Illustration.drawio.pdf}%
+    }%
+    \begin{subfigure}[b]{0.4\textwidth}
+        \centering
+        \usebox{\largestimage}
+        \caption{RNN}
+        \label{fig:diagram_rnn}
+    \end{subfigure}
+    \quad
+    \begin{subfigure}[b]{0.5\textwidth}
+        \centering
+        % Adjust vertical height of smaller image
+        \raisebox{\dimexpr.5\ht\largestimage-.5\height}{%
+        \includegraphics[width=\textwidth]{assets/LSTM_Illustration.drawio.pdf}}
+        \caption{LSTM}
+        \label{fig:diagram_lstm}
+    \end{subfigure}
+    \caption{Illustrations of the core architectures of RNN and LSTM}
+    \label{fig:diagrams_rnn_lstm}
+\end{figure}
+
+Further works in this direction exploited the use of \textbf{Convolutional Neural Networks} to perform time series forecasting \citep{bai2018temporalconvolution}, discovering that it could outperform canonical Recurrent Neural Networks and LSTMs across various tasks, indicating them as a starting point for sequence modeling tasks due to their abilities to exploit local dependencies and have a longer memory thanks to the logarithmic interaction distance between input positions.
+
+\section{Transformer Networks and LLMs}
+Before we get into the main topics of this work, it is crucial to understand Large Language Models (LLMs) and the network architecture behind most of them especially in recent times.
+
+%% Transformers
+A strong evolution in sequence processing, especially in the field of Natural Language Processing,
+is represented by Transformer networks \citep{NIPS2017_attentionisallyouneed}.
+Unlike previous sequence models that relied on recurrent or convolutional layers, transformers use a mechanism called self-attention to process input data in parallel rather than sequentially. This design allows transformers to capture long-range dependencies and relationships between elements in a sequence more effectively. Its scalability and effectiveness have made it the foundation for most modern large language models and many other AI systems, including, but not limited to, applications in Computer Vision, audio and signal processing.
+
+%% Encoder-decoder
+Their original architecture is composed by an Encoder and a Decoder.
+In the Encoder part, the input, which is often a one-hot encoded vector of the input text tokens, is embedded via a learnable embedding layer, and added to a fixed positional encoding, to make the text variant with respect to permutations.
+The embedded tokens are transformed through a series of stacked layers, each having a multi-head attention part, where all tokens can \emph{attend} all others (creating the parallel and long-range interactions previously discussed), then after skip connections and normalization layers which help with training stability, the tokens are individually transformed using a Feed Forward layer. It repeats for the predefined number of stacked layers.
+While in the Decoder part, the self-attention applied to the expected output targets is \emph{Masked}, indicating that a token at position $i$ cannot attend tokens at positions $j > i$, since it would cause the network not to actually predict future tokens, as it will have to do during inference.
+
+%% LLM Introduction
+\textbf{Language Models} in their simplest conception are computational systems designed to understand human natural language and generate sentences based on statistical relationships and properties between words, learnt during the training stage.
+Traditionally, they were modeled using $n$-grams, like bi-grams if $n = 2$, focusing on predicting the most likely next word, based on the $n-1$ previous ones following this approximation:
+
+\begin{equation}
+    \mathbb{P}(x_t | x_{1:t-1}) \approx \mathbb{P}(x_t | x_{t-n+1:t-1})
+\end{equation}
+
+Simple and explainable models like these have been surpassed by more evolved neural network based models, such as RNN and LSTM discussed in \cref{sec:introduction__sequence_processing}.
+Even more powerful are Transformed based models, representing a huge scaling of language models and involving the training of several billion parameters, take the name of \textbf{Large Language Models}, or LLMs for short. This scaling experiment led to unexpected capabilities, like few-shots learning, generating plausible and grammar correct text corpus.
+You cannot say the same for the correctness of the contents that are being generated. It is not so infrequent to see generated textual responses that contain some plausible sentences carrying a totally incorrect information, which take the name of \emph{hallucinations}.
+Moreover, LLMs face potential biases derived from the training data, which are addressed in a later step in the training process, discussed in \cref{sec:introduction__meaning_attack_llm}.
+
+%% T5
+An LLM that applied the standard Transformer architecture is \textbf{T5}, or \emph{Text-to-Text Transfer Transformer}
+\citep{raffel2020exploringt5}. It has an Encoder - Decoder architecture and it has been made to model a universal sequence-to-sequence text transformer, which is able to work on a variety of downstream tasks, just applying a natural language prefix to the input prompt, like \emph{``summarize: <text>''} or \emph{``translate from <lang\_from> to <lang\_to>: <text>''}
+
+%% BERT: encoder-only
+In contexts different from standard sequence-to-sequence tasks, it has been studied the use of Encoder-only architectures, like in \textbf{BERT}, or \emph{Bidirectional Encoder Representations from Transformers} \cite{devlin2019bert}.
+The choice of this architecture is based on the scope of this new model: it is a \emph{Masked} LLM, meaning that it is pretrained only to be a foundation model.
+Its pretraining task is to make predictions on some masked tokens, in a non-autoregressive way, while being conditioned on the still visible parts of the input tokens.
+Using its Encoder, it can learn representations of entire sentences, or represent tokens with respect to all other tokens in the sentence, which is particularly useful with words that have different meanings depending on their usage, or words like \emph{``not''} that change the meaning of an entire component of the overall input text.
+Because it is a foundation model, it is meant to be fine-tuned on downstream tasks, like Question Answering, Sentence Pair Classification or Sentence Tagging tasks.
+
+%% GPT: decoder-only
+Finally, to achieve better performances without fixed pair inputs, as in the case of the T5 model,
+a Decoder-only architecture can be used. A famous example of this approach is the \textbf{GPT} model, also referred to as  It works in a simple autoregressive way. During its unsupervised pretraining step, it does not differentiate between a task to perform and its correct solution, but just about predicting the next token in a text corpus.
+This allows to have a much bigger dataset to train on, potentially the whole web, while being much simpler. Then, it can be fine-tuned in a supervised methodology to solve some specific tasks fine-tuning the LLM with some question-answer data, or in a chat form, thus constructing what are nowadays very popular LLM-based chatbots.
+The Decoder-only architecture, despite its simplicity, can be shown to be Turing complete, given a minimum vector dimensionality, relative to the token embedding size \citep{roberts2024powerful-decoderonly}.
+
+\section{Adversarial attacks}
+%% Adversarial attacks in generale
+Deep networks are widely used in many fields of AI, especially when the task to fulfill is not so simple or straightforward.
+However, a main concern about their usage in critical scenarios is the presence of adversarial samples.
+They are defined, in the context of deep classifiers for images, as input samples that, despite being unnoticeable by the human eyes, are able to lead to misclassifications, sometimes letting the model output a probability even higher of being of a certain class rather than real-world samples of that misclassified class \citep{zhang2023review-adversarialattacksurvey}.
+
+As a general understanding, adversarial attacks can be divided into:
+\begin{itemize}
+    \item \textbf{white-box} attacks, where the bad actor has access to the internal weights, activations and gradients of the target model;
+    \item \textbf{black-box} attacks, where the target is observed by the bad actor as a black-box, as the name suggests, looking only at the output of it, without knowing its internal behavior
+    \item \textbf{gray-box} attacks are somewhere in the middle of the previous two cases, where some limited internal information is available
+\end{itemize}
+
+A very popular optimization-based white-box attack targeting deep image classifiers is the Carlini \& Wagner (\textbf{C\&W}) algorithm \citep{carlini-wagner-image-attack}.
+It is designed to find a perturbation of the input that minimized a predefined norm, as $L_0$ or $L_2$, while leading to a misclassification. It is referred to as \emph{targeted attack} when the misclassified class is already define beforehand instead of being just a class different from the true one.
+
+\begin{equation}
+\begin{split}
+    \text{minimize}_\delta \;&\; L_{norm}(x, x+\delta) \\
+    \text{such that}       \;&\; f(x+\delta) = t       \\
+                           \;&\; x+\delta \in [0,1]^n
+\end{split}
+\end{equation}
+
+In the context of Gradient-based white-box attacks, it is worth mentioning an efficient method referred as Fast Gradient Sign Method (\textbf{FGSM}) \citep{goodfellow2014explainingfgsm}.
+The perturbation is obtained by looking at the direction of the gradient of the loss function, thus making the model go in the direction of a misclassification by changing the input sample.
+This time, the magnitude of the perturbation ($\alpha$) is an hyperparameter. A value too low may lead to bad effects in the attack success rate, while making it too high may cause the imperceivability requirement to fail.
+
+\begin{equation}
+    x' = x + \alpha \cdot \text{sign}(\nabla_x \mathcal{L}(\theta; x; y_{\text{true}}))
+\end{equation}
+
+It may also be repeated iteratively, leading us to the \textbf{I-FGSM} algorithm introduced by \citeauthor{kurakin2018adversarial-iterative-fgsm}.
+
+\subsection{Targeting LLMs}
+\label{sec:introduction__meaning_attack_llm}
+We have observed how generally adversarial attacks can be easily applied to image classifiers, mostly because of it having a manageable continuous input space, where any perturbation can be added and the result will still be a valid sample in the input.
+This cannot be directly applied to Large Language Models, since tokens are \textbf{discrete}.
+Even though their embeddings are continuous, only a very small subset of $\mathbb{R}^d$, where $d$ is the dimensionality of the embedding for a specific LLM, contains the valid embeddings that can be mapped back to a token.
+
+%% Usual training di LLM
+The state of the art procedure to \textbf{train an LLM} consists of multiple stages \citep{grattafiori2024llama}:
+\begin{enumerate}
+    \item the pre-training step, further split into:
+    \begin{enumerate}
+        \item the collection of a huge training corpus from a variety of sources, filtering Personally Identifiable Information (\emph{PII}), sources with known inappropriate content and de-duplication of lines repeated too many times;
+        \item the initial pre-training step involves deciding the architecture, which is almost always a dense Transformer-based one \citep{NIPS2017_attentionisallyouneed}, as well as establishing the scale of the model in terms of number of parameters and fixing the hyperparameters;
+        \item long-context pre-training, where the model is fed with context windows up to 128K tokens - and this only happens after an initial pre-training because of the quadratic scale of self-attention layers
+    \end{enumerate}
+
+    \item the post-training procedure follows, starting from the fine-tuning of the foundation LLM into a chat model, on a dataset implementing a chat protocol decided by the LLM authors, including the chat format for the system, assistant and user texts, but also the special tokens to utilize for that goal;
+
+    \item the alignment step.
+\end{enumerate}
+
+%% Cosa vuol dire quanto diventano aligned
+This last \textbf{alignment} step is the most interesting one when it comes to adversarial attacks.
+It consists of Supervised FineTuning (\textbf{SFT}) data collected via human annotations or synthetically generated.
+Its goal is to make the LLM more reliable and safe, by aligning it with human values. In simpler terms, it should instruct the LLM not to reply to requests that go against ethical principles, legality and so on.
+It can be achieved training a SFT model with techniques like Direct Preference Optimization (\textbf{DPO}) \citep{rafailov2023directpreferenceoptimization}, to overcome the old and costly algorithm RLHF (\emph{Reinforcement Learning from Human Feedback}) \citep{zheng2023secretsrlhflargelanguage}.
+However, especially state-of-the-art suffix based adversarial attacks, as seen in \cref{sec:related_work__sota_suffix_generation}, can bypass this alignment procedure, making the model reply to questions that should not be made available according to the injected chat model safety policies.
+
+%% VERY BRIEFLY, modi di attaccarli
+As we will see more in details in the next chapter, there are multiple ways to attack an LLM:
+\begin{itemize}
+    \item an out-of-distribution input text may be given as input, letting the model generate a meaningful completion sequence, despite the meaningless input the attacker used;
+    \item an LLM may be inducted to perform tasks that should be prohibited, according to common sense and ethical considerations, neutralizing the effects of the alignment procedure (\cref{sec:related_work__sota_suffix_generation}).
+\end{itemize}
+
+\section{Safety and Ethical considerations}
+%% Considerazioni etiche
+With the increasing popularity of LLMs even among normal population after the introduction of powerful chatbots based on them, safety and the understanding of their internals plays a crucial role,
+especially to protect non-technical people.
+Several jailbreak prompts are publicly available, most of them being fixed in newer releases of affected models. However, it is not clear whether or not they may be fixed once and for all, instead of continuing to solve newer ones as they are discovered by the research community.
+
+\begin{figure}[hbp]
+    \centering
+    \includegraphics[width=\linewidth]{assets/LLM_Tool_workflow.drawio.pdf}
+    \caption{Example invocation of a tool by an LLM to perform a real-world action}
+    \label{fig:introduction__llm_tool_workflow}
+\end{figure}
+
+%% Safety di LLM in production
+Furthermore, safety is even more important when these systems are integrated into automated applications and connected to \textbf{tools}. In this sense, they may be used to actually perform harmful actions, instead of just replying with something they should not say, according to principles of common sense, legality and ethics.
+Indeed, supposing that an LLM is connected to a service to send emails and the arguments to invoke this function are provided by the LLM, we may accidentally let an attacker use our company e-mail address to conduct a phishing campaign and so on. This should make developers aware of the risks they are exposing themselves when letting an LLM take actions on their behalf and they should pay really careful attention on sanitizing LLM-provided arguments, treating them as potentially harmful user inputs instead of an internal data that should already be considered to be safe.
+
+As we will see in the next chapters, it is absolutely possible to trick an LLM into continuing a sequence of tokens as we - playing the role of the attackers - want. It may include a tool function invocation, exploiting some vulnerable situations as mentioned before.
+
+To conclude, when opaque prompts (input sequences that are nonsensical from a human point of view)
+are involved in the process, it is even more clear that we cannot fully control the internal behavior of Large Language Models, especially with the intent of mitigating unintended actions from being taken. They are an indication that generation is still of out of our control, going in the opposite direction of the phenomenon of Prompt Engineering.
+Our investigation and experiments during this thesis aim to make them safer and more predictable.
+
+\subbib{}
+\end{document}

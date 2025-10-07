@@ -1,0 +1,25 @@
+\documentclass[../thesis.tex]{subfiles}
+\graphicspath{{\subfix{../assets/}}}
+\begin{document}
+
+\begin{abstract}
+In the field of Natural Language Processing, Large Language Models have seen an increasing interest not only by the research community but also from many product developers, integrating LLMs in their own applications. While this empowers their solutions with AI capabilities, it represents a rising risk related to the nondeterministic behavior of such agents.
+
+This study investigates Adversarial Attack techniques to make LLMs perform tasks that they shouldn't, exploring their robustness. It also aims to find a way to make them more grounded, so that they can be safer for the whole community and improve the current landscape of defensive mechanisms for LLMs, which is currently fragmented and underdeveloped, unlike prior work on deep classifiers.
+
+To further understand adversarial robustness in LLMs, we propose \textbf{Inverse Language Modeling (ILM)} \citep*{gabrielli2025inverselanguagemodelingrobust}, a unified framework that has a \emph{twofold objective}: \\
+\pointbone{} \textbf{robustness}: we will study and analyze a new, fast and efficient Adversarial Training method for LLMs, which takes inspiration from years of progress on robust classifiers and leverages the notion of Perceptually Aligned Gradients and double backpropagation of the loss function; \\
+% LLMs are trained in forward-mode, i.e., when given a text prompt $\bx$, the transformer~\cite{vaswani2017attention} predicts its completion $\by$ with self-supervision, so they can be seen as next token classifiers;
+% \\
+% \footnote{For the sake of clarity in the notation we indicate the text prompt as $\bx$ whereas in reality is a sequence of  input tokens as $\{\bx_{0},\ldots,\bx_{i-1}\}$ and $\by$ is the one-step left-shifted version of it.}. ILM instead extends this idea backward, which is as follows: given $\by$ (the answer), is the LLM aware of the text prompt $\bx$ that was conditioned on? ILM does not involve reversing the token sequence. Instead, it relies on gradient-based alignment to reconstruct input signal from the output direction--essentially mimicking inverse problems in vision. ILM could help LLMs’ robustness since adversarial attacks can be considered a form of inversion with bounds in the input space~\cite{mirza2024shedding}. 
+\pointbtwo{} \textbf{grounded LLMs}: this second goal is a byproduct of the first one and would allow RED teaming to better investigate what may generate a malicious output $\by$ by inverting it --- the idea of inversion is further explained in \cref{chap:inversion}.
+
+Importantly, ILM does not reverse the token sequence. It recovers the input prompt by performing gradient-based alignment that is informed by both the model’s output probabilities and the representations accumulated at each layer during the forward pass.
+
+In this work, we define \textbf{robustness} as reduced sensitivity to adversarially perturbed prompts, and \textbf{grounding} as ensuring that LLMs ``know what they have been asked'', addressing evidence that they often fail to represent their own knowledge faithfully~\cite{melamed2024prompts,bender2021dangers}.
+
+ILM aims at being a pioneer into the transformation of LLMs from static generators into \textbf{analyzable and robust systems}, while it can also lay the foundation for next-generation LLMs that are not only robust and grounded but also fundamentally more controllable and trustworthy.
+\end{abstract}
+
+\subbib{}
+\end{document}

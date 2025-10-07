@@ -1,0 +1,22 @@
+\documentclass[../thesis.tex]{subfiles}
+\graphicspath{{\subfix{../assets/}}}
+\begin{document}
+
+\chapter{Conclusion}
+In conclusion, this thesis, together with the associated paper published as a preprint on ArXiv, introduces Inverse Language Modeling (ILM) as a novel framework designed to simultaneously address two critical challenges in Large Language Models (LLMs): robustness and grounding.
+Our experiments demonstrate ILM's potential to enhance LLMs' resilience against input perturbations, a key step towards mitigating vulnerabilities to adversarial attacks.
+Furthermore, ILM offers a pathway to improved grounding, enabling LLMs to better correlate their outputs with the input prompts and thereby facilitating the identification of potentially problematic input triggers.
+By the current transformation of LLMs into agents that not only generate text but also analyze untrusted user inputs and perform real actions, ILM paves the way for the development of more reliable, controllable, and trustworthy language models.
+
+\section*{Future work}
+There are several promising avenues for future research.
+While ILM is introduced within the context of pre-training, an interesting direction would be to explore its application in the \textbf{fine-tuning stage}.  Specifically, one could investigate how the principles of inverse modeling can be incorporated into the fine-tuning process to improve the robustness and generalization of LLMs on downstream tasks.  Additionally, research could explore the potential benefits of combining ILM with instruction tuning, to further align LLM behavior with human preferences and instructions.
+Further exploration should also consider the application of ILM to more powerful LLMs, such as Llama-3.2-1B or even larger 7B models, to assess its \textbf{scalability} and effectiveness as model capacity increases.
+
+\clearpage
+\section*{Ethics and Impact Statement}
+The advancement of LLMs carries potential ethical implications. Enhancing the robustness and grounding of these models can positively impact society, including reducing the spread of misinformation and harmful content. Our investigation into this phenomenon contributes to a better understanding of how LLMs work and, thus, ultimately, to make them safer and more predictable. We believe that the publication of our research will promote a broader discussion on the responsible development of LLMs and contribute to the development of better defense mechanisms, as similar progress has already been made in the field of deep classifiers.
+
+
+\subbib{}
+\end{document}
