@@ -143,35 +143,35 @@
 % \end{frame}
 
 
-\begin{frame}{Gradient-based Attacks}
-\note{
-    However, we do not directly optimize the input image, but a delta noise, weighted by an alpha factor.\\
-    This way, the input is the sum of the two, and hopefully, the model will misclassify.\\
-}
-    What to optimize?
-    \vfill
+% \begin{frame}{Gradient-based Attacks}
+% \note{
+%     However, we do not directly optimize the input image, but a delta noise, weighted by an alpha factor.\\
+%     This way, the input is the sum of the two, and hopefully, the model will misclassify.\\
+% }
+%     What to optimize?
+%     \vfill
 
-    \begin{minipage}{0.2\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{assets/input_cat.png}\\
-        Input image
-    \end{minipage}\hfill
-    + $\alpha \cdot$\hfill
-    %
-    \begin{minipage}{0.2\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{assets/noise.png}\\
-        \highlight{Noise}
-    \end{minipage}\hfill
-    %
-    $\Rightarrow$\hfill
-    %
-    \begin{minipage}{0.2\linewidth}
-        \centering
-        \includegraphics[width=\linewidth]{assets/wrong_y_prob.pdf}\\
-        Output Distribution
-    \end{minipage}
-\end{frame}
+%     \begin{minipage}{0.2\linewidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{assets/input_cat.png}\\
+%         Input image
+%     \end{minipage}\hfill
+%     + $\alpha \cdot$\hfill
+%     %
+%     \begin{minipage}{0.2\linewidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{assets/noise.png}\\
+%         \highlight{Noise}
+%     \end{minipage}\hfill
+%     %
+%     $\Rightarrow$\hfill
+%     %
+%     \begin{minipage}{0.2\linewidth}
+%         \centering
+%         \includegraphics[width=\linewidth]{assets/wrong_y_prob.pdf}\\
+%         Output Distribution
+%     \end{minipage}
+% \end{frame}
 
 % \begin{frame}{Example of Targeted Attack}
 %     Given fixed:
