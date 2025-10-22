@@ -110,22 +110,22 @@
     \hfill $\bx_p =$ \highlight{The pen is} \hfill $\bx_s = $ on the table \hfill $\;$\\
 \end{frame}
 
-% \begin{frame}{Gradients Received by the Tokens}
-% \note{
-%     But how is that possible? What's the \textbf{theoretical} rationale behind it? \\
-%     From this diagram, you can see that if we change a token in the middle, like $\be_3$, \\
-%     it influences the hidden states only in the future, \\
-%     but gradients carry out the information of the overall sentence, \\
-%     since the gradients of the previous tokens (the \textbf{past}) change as well.
-% }
-%     Gradients received on a single token embedding,
-%     carry information of the whole sentence
+\begin{frame}{Gradients Received by the Tokens}
+\note{
+    But how is that possible? What's the \textbf{theoretical} rationale behind it? \\
+    From this diagram, you can see that if we change a token in the middle, like $\be_3$, \\
+    it influences the hidden states only in the future, \\
+    but gradients carry out the information of the overall sentence, \\
+    since the gradients of the previous tokens (the \textbf{past}) change as well.
+}
+    Gradients received on a single token embedding,
+    carry information of the whole sentence
 
-%     \begin{figure}
-%         \centering
-%         \includegraphics[height=0.6\paperheight]{assets/llm_gradients_changing_embedding.drawio.pdf}
-%     \end{figure}
-% \end{frame}
+    \begin{figure}
+        \centering
+        \includegraphics[height=0.6\paperheight]{assets/llm_gradients_changing_embedding.drawio.pdf}
+    \end{figure}
+\end{frame}
 
 \begin{frame}{Gradients Received by the Tokens}
 \note{
